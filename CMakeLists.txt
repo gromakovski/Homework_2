@@ -6,7 +6,7 @@ find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 configure_file(version.h.in version.h)
 
-add_executable(filter_cli main.cpp)
+add_executable(filter_cli filter.cpp)
 
 add_library(filter lib.cpp)
 
