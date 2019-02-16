@@ -2,6 +2,8 @@
 #include<algorithm>
 #include<vector>
 #include<string>
+#include <spdlog/spdlog.h>
+#include "lib.h"
 
 std::vector<std::string> split(const std::string &str, char d)
 {
@@ -95,7 +97,10 @@ int main(int argc, char const *argv[])
         }
 
 
-           
+    uto logger = spdlog::stdout_logger_mt("console");
+
+    logger->info("version {} was started", version());       
+    
     }
     catch(const std::exception& e)
     {
