@@ -97,9 +97,9 @@ int main(int , char **)
         }
 
 
-    auto logger = spdlog::stdout_logger_mt("console");
+    //auto logger = spdlog::stdout_logger_mt("console");
 
-    logger->info("version {} was started", version());       
+    //logger->info("version {} was started", version());       
     
     }
     catch(const std::exception& e)
