@@ -97,7 +97,7 @@ int main(int argc, char const *argv[])
         }
 
 
-    uto logger = spdlog::stdout_logger_mt("console");
+    auto logger = spdlog::stdout_logger_mt("console");
 
     logger->info("version {} was started", version());       
     
