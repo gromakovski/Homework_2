@@ -4,15 +4,15 @@ project(filter VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
-configure_file(version.h.in version.h)
+configure_file(version.h.in version.h) 
 
-add_executable(filter_cli filter.cpp)
+add_executable(ip_filter filter.cpp)
 
 add_library(filter lib.cpp)
 
 add_executable(test_version test_version.cpp)
 
-set_target_properties(filter_cli filter test_version PROPERTIES
+set_target_properties(ip_filter filter test_version PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
     COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
@@ -23,7 +23,7 @@ set_target_properties(test_version PROPERTIES
     INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
 )
 
-target_link_libraries(filter_cli
+target_link_libraries(ip_filter
     filter
 )
 
@@ -32,7 +32,7 @@ target_link_libraries(test_version
     filter
 )
 
-install(TARGETS filter_cli RUNTIME DESTINATION bin)
+install(TARGETS ip_filter RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 
