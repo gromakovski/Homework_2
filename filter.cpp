@@ -1,48 +1,38 @@
-#include<iostream>
-#include<algorithm>
-#include<vector>
-#include<string>
-#include <spdlog/spdlog.h>
-#include "lib.h"
+#include "filter.h"
+#include "define.h"
 
-std::vector<std::string> split(const std::string &str, char d)
+std::vector<std::string> ip::set_subs (const std::string &str, const char end_subs)
 {
-    std::vector<std::string> r;
-
+    std::vector<std::string> ip_adress;
     std::string::size_type start = 0;
-    std::string::size_type stop = str.find_first_of(d);
+    std::string::size_type stop = str.find_first_of(end_subs);
+   
     while(stop != std::string::npos)
     {
-        r.push_back(str.substr(start, stop - start));
-
+        ip_adress.push_back(str.substr(start, stop - start));
         start = stop + 1;
-        stop = str.find_first_of(d, start);
+        stop = str.find_first_of(end_subs, start);
     }
 
-    r.push_back(str.substr(start));
-
-    return r;
+    ip_adress.push_back(str.substr(start));
+    return ip_adress;
 }
 
 
-int main(int , char **)
+void ip::set_ip_pool()
 {
-    try
-    {
-        
-
-        std::vector<std::vector<std::string> > ip_pool;       
-        std::vector<std::vector<std::string> > ip_pool_test;
-
-
-        for(std::string line; std::getline(std::cin, line);)
+    for(std::string line; std::getline(std::cin, line);)
         {
-            auto v = split(line, '\t');
-            ip_pool.push_back(split(v.at(0), '.'));
+            auto v = ip::set_subs(line, END_IP_ADRESS);
+            //ip::set_subs(ip_adress.at(0), '.');
+            ip_pool.push_back(ip::set_subs(v.at(0), END_IP));   
+
         }
+}
 
-
-        std::sort(ip_pool.begin(),
+void ip::sort_reverse_all()
+{
+            std::sort(ip_pool.begin(),
                     ip_pool.end(),
                     [](auto a, auto b) 
                         {
@@ -62,28 +52,32 @@ int main(int , char **)
                             else return atoi(a[0].c_str()) > atoi(b[0].c_str());
                         }
                     );
+}
 
-        
-       for (auto ip = ip_pool.begin(); ip != ip_pool.end(); ++ip) 
+std::vector<std::vector<std::string>>  ip::search_one_byte(const std::string one_byte)
+{
+    std::vector<std::vector<std::string>> search_ip_pool;
+     for (auto ip = ip_pool.begin(); ip != ip_pool.end(); ++ip) 
        {
-            if (*ip->begin()=="1") ip_pool_test.push_back(*ip);
+             if (*ip->begin()==one_byte) search_ip_pool.push_back(*ip);
        }
+    return search_ip_pool;
+}
 
-        for (auto ip = ip_pool.begin(); ip != ip_pool.end(); ++ip) 
+std::vector<std::vector<std::string>>  ip::search_two_byte (const std::string one_byte, const std::string two_byte)
+{
+    std::vector<std::vector<std::string>> search_ip_pool;
+     for (auto ip = ip_pool.begin(); ip != ip_pool.end(); ++ip) 
        {
-            if (*ip->begin()=="46" and (*ip)[1]=="70") ip_pool_test.push_back(*ip);
+             if (*ip->begin()==one_byte and (*ip)[1]==two_byte) search_ip_pool.push_back(*ip);
        }
+    return search_ip_pool;
+}
 
-
-       //ip_pool.reserve(ip_pool.size()+ip_pool_test.size());
-       ip_pool.insert(ip_pool.end(),ip_pool_test.begin(),ip_pool_test.end()); 
-
-        
-        
-        
-        
-        for(auto ip = ip_pool.cbegin(); ip != ip_pool.cend(); ++ip)
-        {
+void ip::get()
+{
+    for(auto ip = ip_pool.cbegin(); ip != ip_pool.cend(); ++ip)
+       {
             for(auto ip_part = ip->cbegin(); ip_part != ip->cend(); ++ip_part)
             {
                 if (ip_part != ip->cbegin())
@@ -95,16 +89,10 @@ int main(int , char **)
             }
             std::cout << std::endl;
         }
+}
 
-
-    auto logger = spdlog::stdout_logger_mt("console");
-
-    logger->info("version {} was started", version());       
-    
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    
+void ip::push_back_ip_pool(std::vector<std::vector<std::string>> in_ip_pool)
+{
+    for (auto ip = in_ip_pool.begin(); ip != in_ip_pool.end(); ++ip) 
+        ip_pool.push_back(*ip);
 }

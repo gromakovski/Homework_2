@@ -6,13 +6,15 @@ find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 configure_file(version.h.in version.h) 
 
-add_executable(ip_filter filter.cpp)
+add_executable(ip_filter main.cpp)
+
+add_library(ip filter.cpp)
 
 add_library(filter lib.cpp)
 
 add_executable(test_version test_version.cpp)
 
-set_target_properties(ip_filter filter test_version PROPERTIES
+set_target_properties(ip_filter filter ip test_version PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
     COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
@@ -25,6 +27,7 @@ set_target_properties(test_version PROPERTIES
 
 target_link_libraries(ip_filter
     filter
+    ip
 )
 
 target_link_libraries(test_version
