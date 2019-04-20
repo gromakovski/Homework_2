@@ -13,8 +13,11 @@ addons:
 before_script:
 - sudo apt-get install libboost-all-dev -y
 - sudo apt-get install libgtest-dev -y
+- sudo apt-get install libgtest-dev -y
+- sudo apt-get install cmake -y
 - cd /usr/src/gtest
 - sudo env "PATH=$PATH" cmake .
+- sudo cmake CMakeLists.txt
 #- sudo env "PATH=$PATH" cmake --build . --target install
 - sudo make
 - sudo cp *.a /usr/lib
