@@ -1,6 +1,5 @@
 sudo: required
-language: 
- - cpp
+language: cpp
 dist: trusty
 
 addons:
@@ -26,10 +25,11 @@ before_script:
 - pwd
 - ls
 - cd $TRAVIS_BUILD_DIR
+- pwd
+- ls
 
 script:
 - CXX=/usr/bin/g++-7 CC=/usr/bin/gcc-7 cmake .
-- cd /usr/src/gtest
 - cmake --build .
 - cmake --build . --target test
 - cmake --build . --target package
