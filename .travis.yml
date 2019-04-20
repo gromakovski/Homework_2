@@ -24,8 +24,7 @@ before_script:
 - sudo apt-get update -qq
 - pwd
 - ls
-- cd /usr/src
-- ls
+- find /usr/src/gtest -name "gtest.h"
 - cd $TRAVIS_BUILD_DIR
 - pwd
 - ls
