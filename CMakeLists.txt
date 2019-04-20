@@ -26,7 +26,7 @@ add_executable(test_version test_version.cpp)
 
 add_executable(test_main gtest_main.cpp)
 
-set_target_properties(ip_filter filter ip test_version gtest_main PROPERTIES
+set_target_properties(ip_filter filter ip test_version test_main PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
     COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
@@ -49,7 +49,7 @@ target_link_libraries(test_version
     filter
 )
 
-target_link_libraries(gtest_main ${GTEST_BOTH_LIBRARIES} 
+target_link_libraries(test_main ${GTEST_BOTH_LIBRARIES} 
     ip_filter
     pthread
 )
