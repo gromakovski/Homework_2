@@ -50,7 +50,7 @@ target_link_libraries(test_version
 )
 
 target_link_libraries(test_main ${GTEST_BOTH_LIBRARIES} 
-    ip_filter
+    filter
     pthread
 )
 
