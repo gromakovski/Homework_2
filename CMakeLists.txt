@@ -49,7 +49,7 @@ target_link_libraries(test_version
     filter
 )
 
-target_link_libraries(test_main ${GTEST_BOTH_LIBRARIES} 
+target_link_libraries(gtest_main ${GTEST_BOTH_LIBRARIES} 
     ip_filter
     pthread
 )
