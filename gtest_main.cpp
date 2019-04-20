@@ -1,4 +1,4 @@
-#include</usr/src/googletest/googletest/include/gtest/gtest.h>
+#include</usr/include/gtest/gtest.h>
 
 int main(int argc, char const *argv[])
 {
