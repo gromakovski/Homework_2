@@ -68,5 +68,5 @@ include(CPack)
 
 enable_testing()
 
-#add_test(test_version test_version)
+add_test(test_version test_version)
 add_test(test_main test_main)
