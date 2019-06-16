@@ -32,10 +32,10 @@ install:
   - sudo apt-get install -qq g++-8
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
 script:
-- cmake .
-- cmake --build .
-- cmake --build . --target test
-- cmake --build . --target package
+- cmake -D BUILD_TYPE_RELEASE=ON .
+- cmake --build . -- -j "`nproc`"
+- cmake --build . --target test -- -j "`nproc`"
+- cmake --build . --target package -- -j "`nproc`"
 deploy:
   provider: script
   skip_cleanup: true
