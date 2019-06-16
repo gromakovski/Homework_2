@@ -1,17 +1,9 @@
-sudo: required
 language: cpp
-
 before_script:
 - sudo apt-get install libboost-test-dev -y
-- sudo apt-get install libgtest-dev -y
-- sudo apt-get install cmake -y
-- cd /usr/src/gtest
-- sudo cmake CMakeLists.txt
-- sudo make
-- sudo cp *.a /usr/lib
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
 - sudo apt-get update -qq
-- cd -
+- sudo apt-get install libspdlog-dev -y
 before_install:
   # C++17
   - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
@@ -19,8 +11,8 @@ before_install:
 # Install dependencies
 install: 
   # C++17
-  - sudo apt-get install -qq g++-8
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
+  - sudo apt-get install -qq g++-6
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
 script:
 - cmake .
 - cmake --build .
@@ -30,5 +22,4 @@ deploy:
   provider: script
   skip_cleanup: true
   script:
-- curl -T helloworld-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uvladimir-gr:$BINTRAY_API_KEY "https://api.bintray.com/content/vladimir-gr/OTUS/HOMEWORK_1/$TRAVIS_BUILD_NUMBER/helloworld-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
-
+  - curl -T filter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uvladimir-gr:$BINTRAY_API_KEY "https://api.bintray.com/content/vladimir-gr/OTUS/HOMEWORK_2/$TRAVIS_BUILD_NUMBER/filter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
